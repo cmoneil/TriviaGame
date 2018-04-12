@@ -79,90 +79,96 @@ $(document).ready(function () {
 
     function wrongAnswer() {
         lossCounter++;
+        console.log(lossCounter);
         if (lossCounter === 3) {
             console.log("Loser");
             lossScreen();
         }
-        else if (lossCounter < 3) { 
-        console.log(lossCounter);
-        contentHtml = "<p>Wrong Answer!</p><p>The correct answer was: </p>" + game.correctChoice[questionNumber] + "</p>";
-        $('.gameArea').html(contentHtml);
-        setTimeout(pause, 5000);
+        else if (lossCounter < 3) {
+            contentHtml = "<p>Wrong Answer!</p><p>The correct answer was: </p>" + game.correctChoice[questionNumber] + "</p>";
+            $('.gameArea').html(contentHtml);
+            setTimeout(pause, 5000);
         }
-    
-
-};
-
-$('body').on('click', '.startButton', function (event) {
-    newHtml();
-    timerCount();
-    console.log('start');
-});
-
-$('body').on('click', '.answer', function (event) {
-    console.log('true')
-    answerChoice = $(this).text();
-    if (answerChoice === game.correctChoice[questionNumber]) {
-        console.log('correct');
-        correctAnswer();
-        clearInterval(clock);
-    }
-    else {
-        console.log('wrong');
-        wrongAnswer();
-        clearInterval(clock);
-    }
-    console.log(answerChoice);
-})
-
-$('body').on('click', '.resetButton', function (event) {
-    lossCounter = 0;
-    winCounter = 0;
-    newHtml();
-    timerCount();
-    console.log('restart');
-})
 
 
+    };
 
+    $('body').on('click', '.startButton', function (event) {
+        newHtml();
+        timerCount();
+        console.log('start');
+    });
 
-
-function timerCount() {
-    clock = setInterval(timeLength, 1000);
-    function timeLength() {
-        if (timeCountdown === 0) {
+    $('body').on('click', '.answer', function (event) {
+        console.log('true')
+        answerChoice = $(this).text();
+        if (answerChoice === game.correctChoice[questionNumber]) {
+            console.log('correct');
+            correctAnswer();
             clearInterval(clock);
-            lossDueToTimeOut();
         }
-        if (timeCountdown > 0) {
-            timeCountdown--;
+        else {
+            console.log('wrong');
+            wrongAnswer();
+            clearInterval(clock);
         }
-        $(".timer").html(timeCountdown);
+        console.log(answerChoice);
+    })
+
+    $('body').on('click', '.resetButton', function (event) {
+        lossCounter = 0;
+        winCounter = 0;
+        timeCountdown = 15;
+        newHtml();
+        timerCount();
+        console.log('restart');
+    })
+
+
+
+
+
+    function timerCount() {
+        clock = setInterval(timeLength, 1000);
+        function timeLength() {
+            if (timeCountdown === 0) {
+                clearInterval(clock);
+                lossDueToTimeOut();
+            }
+            if (timeCountdown > 0) {
+                timeCountdown--;
+            }
+            $(".timer").html(timeCountdown);
+        }
+
+
+
+        function lossDueToTimeOut() {
+            lossCounter++;
+            console.log(lossCounter);
+            if (lossCounter === 3) {
+                lossScreen();
+            }
+            else if (lossCounter < 3) {
+                contentHtml = "<p>Times Up!!</p><p>The correct answer was: </p>" + game.correctChoice[questionNumber] + "</p>";
+                $('.gameArea').html(contentHtml);
+                setTimeout(pause, 5000);
+            }
+        }
+
+
+
+
+        //function resetGame() {
+        //    p class='text-center main-button-container'><a class='btn //btn-primary btn-lg btn-block startButton' href='#' //role='button'>Start Quiz</a></p>
+        // }
+
+
+
+
+        newQuestion();
+
+
     }
-
-
-
-    function lossDueToTimeOut() {
-        lossCounter++;
-        console.log(lossCounter);
-        contentHtml = "<p>Times Up!!</p><p>The correct answer was: </p>" + game.correctChoice[questionNumber] + "</p>";
-        $('.gameArea').html(contentHtml);
-        setTimeout(pause, 5000);
-    }
-
-
-
-
-    //function resetGame() {
-    //    p class='text-center main-button-container'><a class='btn //btn-primary btn-lg btn-block startButton' href='#' //role='button'>Start Quiz</a></p>
-    // }
-
-
-
-
-    newQuestion();
-
-
-}
 
 })
