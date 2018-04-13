@@ -1,5 +1,31 @@
+body {
+    background-image: url(../images/triviaBackground.jpg);
+}
+
+
 .content {
     padding-top: 50px;
-    border: solid 5px black;
+    border: solid 2px black;
     margin: 50px;
+    background-color: lightgrey;
+    border-radius: 10px;
+
+}
+
+.answer {
+    margin-left: 10px;
+
+}
+
+.startButton {
+    background-color: darkcyan;
+
+}
+
+.themeName {
+    text-align: center;
+}
+
+img {
+    margin: 0 auto;
 }

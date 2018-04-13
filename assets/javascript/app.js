@@ -1,11 +1,11 @@
 $(document).ready(function () {
     var game = {
         theme: ['Disney Villains'],
-        question: ['a', 'b', 'c', 'd', 'e', 'f'],
-        choices: [['a', 'b', 'c', 'd', 'e', 'f'], ['a', 'b', 'c', 'd', 'e', 'f'], ['a', 'b', 'c', 'd', 'e', 'f'], ['a', 'b', 'c', 'd', 'e', 'f'], ['a', 'b', 'c', 'd', 'e', 'f'], ['a', 'b', 'c', 'd', 'e', 'f']
+        question: ['Who is the main villain in The Lion King?', 'Who is the main villain in The Little Mermaid?', 'Who is the villain in Aladdin?', 'd', 'e', 'f'],
+        choices: [['Scar', 'Lala', 'Scab', 'Timon', 'Pumba', 'Ursula'], ['Sebastian', 'Flounder', 'King Triton', 'Ursula', 'Jafar', 'Maleficent'], ['Genie', 'Abu', 'The Sultan', 'Scar', 'Jafar', 'Timon'], ['a', 'b', 'c', 'd', 'e', 'f'], ['a', 'b', 'c', 'd', 'e', 'f'], ['a', 'b', 'c', 'd', 'e', 'f']
         ],
-        correctChoice: ['a', 'b', 'c', 'd', 'e', 'f'],
-        choiceImg: ['assets/images/350x150_1.png', 'assets/images/350x150_1.png', 'assets/images/350x150_1.png', 'assets/images/350x150_1.png', 'assets/images/350x150_1.png', 'assets/images/350x150_1.png'],
+        correctChoice: ['Scar', 'Ursula', 'Jafar', 'd', 'e', 'f'],
+        choiceImg: ['assets/images/scar.gif', 'assets/images/ursula.gif', 'assets/images/350x150_1.png', 'assets/images/350x150_1.png', 'assets/images/350x150_1.png', 'assets/images/350x150_1.png'],
         loserImg: ['assets/images/loserQuote.jpeg'],
     }
     var currentQuestion = '';
@@ -19,7 +19,16 @@ $(document).ready(function () {
     var winCounter = 0;
     var contentHml;
 
+    function newQuestion() {
+        questionNumber = Math.floor(Math.random() * game.question.length);
+        console.log(questionNumber);
+        currentQuestion = game.question[questionNumber];
+        console.log(currentQuestion);
+
+    }
+
     function newHtml() {
+        newQuestion();
         contentHml = "<p>Time remaining:<div class = 'timer'>15</div><p><p>Correct Answers:<div class ='winCounter'>0</div></p><p>Wrong Answers:<div class ='lossCounter'>0</div></p>" + game.question[questionNumber] + "</p><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][0] + "</button></p><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][1] + "</button></p><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][2] + "</button></p><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][3] + "</button></p><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][4] + "</button></p><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][5] + "</button></p>";
         $('.gameArea').html(contentHml);
         $('.winCounter').html(winCounter);
@@ -31,7 +40,7 @@ $(document).ready(function () {
 
 
     function initialScreen() {
-        startScreen = "<p class='text-center main-button-container'><a class='btn btn-primary btn-lg btn-block startButton' href='#' role='button'>Start Quiz</a></p>";
+        startScreen = "<p class = 'themeName'>" + game.theme + "</p><p class ='themeName'>Trivia Game</p><p class='text-center main-button-container'><a class='btn btn-primary startButton' href='#' role='button'>Start Quiz</a></p>";
         $(".gameArea").html(startScreen);
     }
 
@@ -51,13 +60,7 @@ $(document).ready(function () {
 
     }
 
-    function newQuestion() {
-        questionNumber = Math.floor(Math.random() * game.question.length);
-        console.log(questionNumber);
-        currentQuestion = game.question[questionNumber];
-        console.log(currentQuestion);
-
-    }
+    
     function pause() {
         newHtml()
         timeCountdown = 15;
@@ -159,14 +162,11 @@ $(document).ready(function () {
 
 
 
-        //function resetGame() {
-        //    p class='text-center main-button-container'><a class='btn //btn-primary btn-lg btn-block startButton' href='#' //role='button'>Start Quiz</a></p>
-        // }
+       
 
 
 
 
-        newQuestion();
 
 
     }
