@@ -7,6 +7,7 @@ $(document).ready(function () {
         correctChoice: ['Scar', 'Ursula', 'Jafar', 'Shere Khan', 'Iago', 'Alpha'],
         choiceImg: ['assets/images/scar.gif', 'assets/images/ursula.gif', 'assets/images/Jafar.gif', 'assets/images/sherekhan.gif', 'assets/images/iago.gif', 'assets/images/up.gif'],
         loserImg: ['assets/images/loserQuote.jpeg'],
+        winImg: ['assets/images/winLionKing.gif','assets/images/mermaidWin.gif','assets/images/aladdinWin.gif','assets/images/jungleWin.gif','assets/images/aladdinWin.gif','assets/images/upWin.gif']
     }
     var currentQuestion = '';
 
@@ -29,7 +30,7 @@ $(document).ready(function () {
 
     function newHtml() {
         newQuestion();
-        contentHml = "<div class= 'text-center contentText'><p>Time remaining:<div class = 'timer'>15</div></p><p>Correct Answers:<div class ='winCounter'>0</div>Wrong Answers:<div class ='lossCounter'>0</div></p>" + game.question[questionNumber] + "</p><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][0] + "</button></p><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][1] + "</button></p><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][2] + "</button></p><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][3] + "</button></p><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][4] + "</button></p><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][5] + "</button></p></div>";
+        contentHml = "<div class= 'text-center contentText'><p>Time remaining:<div class = 'timer'>15</div></p><div class ='row'><div class ='col-6'><p>Correct Answers:<div class ='winCounter'>0</div></div><div class='col-6'>Wrong Answers:<div class ='lossCounter'>0</div></div></p></div><div class = 'row'><div class = 'col-12'><p class = 'question'>" + game.question[questionNumber] + "</p></div></div><div class='row'><div class='col-6'><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][0] + "</button></p><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][1] + "</button></p><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][2] + "</button></p></div><div class = 'col-6'><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][3] + "</button></p><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][4] + "</button></p><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][5] + "</button></p></div></div>";
         $('.gameArea').html(contentHml);
         $('.winCounter').html(winCounter);
         $('.lossCounter').html(lossCounter);
@@ -48,7 +49,7 @@ $(document).ready(function () {
 
     function winScreen() {
 
-        contentHtml = "<div class= 'text-center contentText'><p>Congratulations! You know your " + game.theme + ".</p><p> Press reset to try again</p><p class='text-center main-button-container'><a class='btn btn-primary resetButton' href='#' role='button'>Restart Quiz</a></p></div>";
+        contentHtml = "<div class= 'text-center contentText'><p>Congratulations! You know your " + game.theme + ".</p><p> Press reset to try again</p><p class='text-center main-button-container'><a class='btn btn-primary resetButton' href='#' role='button'>Restart Quiz</a></p><img src =" + game.winImg[questionNumber] + " class='rounded'></div>";
         $('.gameArea').html(contentHtml);
 
     }
@@ -60,7 +61,7 @@ $(document).ready(function () {
 
     }
 
-    
+
     function pause() {
         newHtml()
         timeCountdown = 15;
@@ -162,7 +163,7 @@ $(document).ready(function () {
 
 
 
-       
+
 
 
 

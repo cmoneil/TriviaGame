@@ -5,23 +5,25 @@ body {
 
 
 .content {
-    padding-top: 50px;
+    padding-top: 30px;
     border: solid 2px black;
-    margin: 50px;
+    margin: 40px;
     background-color: rgba(255,255,255, 0.7);
     border-radius: 10px;
 
 }
 
 .contentText {
-    font-size: 25px;
+    font-size: 30px;
 }
 .answer {
     margin-left: 10px;
 
 }
 
-
+.btn {
+    font-size: 30px;
+}
 
 .startButton, .resetButton {
     background-color: darkcyan;
@@ -41,5 +43,9 @@ img {
 }
 
 .btn {
-    50px;
+    font-size: 40px;
+}
+
+.question {
+    font-size: 50px;
 }
