@@ -1,5 +1,6 @@
 body {
     background-image: url(../images/triviaBackground.jpg);
+    font-family: 'Mouse Memoirs', sans-serif;
 }
 
 
@@ -7,25 +8,38 @@ body {
     padding-top: 50px;
     border: solid 2px black;
     margin: 50px;
-    background-color: lightgrey;
+    background-color: rgba(255,255,255, 0.7);
     border-radius: 10px;
 
 }
 
+.contentText {
+    font-size: 25px;
+}
 .answer {
     margin-left: 10px;
 
 }
 
-.startButton {
-    background-color: darkcyan;
 
+
+.startButton, .resetButton {
+    background-color: darkcyan;
+    font-size: 30px;
 }
 
 .themeName {
     text-align: center;
+    font-size: 50px;
+    font-style: bold;
+    color: red;
+
 }
 
 img {
-    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.btn {
+    50px;
 }
