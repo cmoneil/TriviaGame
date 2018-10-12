@@ -9,28 +9,32 @@ $(document).ready(function () {
         loserImg: ['assets/images/loserQuote.jpeg'],
         winImg: ['assets/images/winLionKing.gif','assets/images/mermaidWin.gif','assets/images/aladdinWin.gif','assets/images/jungleWin.gif','assets/images/aladdinWin.gif','assets/images/upWin.gif']
     }
-    var currentQuestion = '';
 
     var timeCountdown = 15;
-    var timeRemain = 0
-    var questionNumber = 0;
+    var questionNumber = Math.floor(Math.random() * game.question.length);
     var clock;
     var answerChoice;
     var lossCounter = 0;
     var winCounter = 0;
-    var contentHml;
+    var contentHtml;
+    let questionAskedArray =[]
 
+    
     function newQuestion() {
-        questionNumber = Math.floor(Math.random() * game.question.length);
-        console.log(questionNumber);
-        currentQuestion = game.question[questionNumber];
-        console.log(currentQuestion);
+        currentQuestion = game.question[questionNumber]
+        
+        if (questionAskedArray.includes(questionNumber)){
+            questionNumber = Math.floor(Math.random() * game.question.length)
+            return newQuestion()
+        }
+        else{
+            questionAskedArray.push(questionNumber)
+            newHtml()}
 
     }
 
     function newHtml() {
-        newQuestion();
-        contentHml = "<div class= 'text-center contentText'><p>Time remaining:<div class = 'timer'>15</div></p><div class ='row'><div class ='col-6'><p>Correct Answers:<div class ='winCounter'>0</div></div><div class='col-6'>Wrong Answers:<div class ='lossCounter'>0</div></div></p></div><div class = 'row'><div class = 'col-12'><p class = 'question'>" + game.question[questionNumber] + "</p></div></div><div class='row'><div class='col-6'><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][0] + "</button></p><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][1] + "</button></p><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][2] + "</button></p></div><div class = 'col-6'><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][3] + "</button></p><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][4] + "</button></p><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][5] + "</button></p></div></div>";
+        contentHtml = "<div class= 'text-center contentText'><p>Time remaining:<div class = 'timer'>15</div></p><div class ='row'><div class ='col-6'><p>Correct Answers:<div class ='winCounter'>0</div></div><div class='col-6'>Wrong Answers:<div class ='lossCounter'>0</div></div></p></div><div class = 'row'><div class = 'col-12'><p class = 'question'>" + game.question[questionNumber] + "</p></div></div><div class='row'><div class='col-6'><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][0] + "</button></p><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][1] + "</button></p><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][2] + "</button></p></div><div class = 'col-6'><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][3] + "</button></p><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][4] + "</button></p><p><button type='button' class='btn btn-light answer'>" + game.choices[questionNumber][5] + "</button></p></div></div>";
         $('.gameArea').html(contentHml);
         $('.winCounter').html(winCounter);
         $('.lossCounter').html(lossCounter);
@@ -51,19 +55,20 @@ $(document).ready(function () {
 
         contentHtml = "<div class= 'text-center contentText'><p>Congratulations! You know your " + game.theme + ".</p><p> Press reset to try again</p><p class='text-center main-button-container'><a class='btn btn-primary resetButton' href='#' role='button'>Restart Quiz</a></p><img src =" + game.winImg[questionNumber] + " class='rounded'></div>";
         $('.gameArea').html(contentHtml);
-
+        questionAskedArray = []
     }
 
     function lossScreen() {
         contentHtml = "<div class ='text-center contentText'><img src =" + game.loserImg + "><p>But you lost. Press reset to try again</p><p class='text-center main-button-container'><a class='btn btn-primary resetButton' href='#' role='button'>Restart Quiz</a></p></div>";
         $('.gameArea').html(contentHtml);
+        questionAskedArray = []
 
 
     }
 
 
     function pause() {
-        newHtml()
+        newQuestion()
         timeCountdown = 15;
         timerCount()
     }
@@ -83,7 +88,7 @@ $(document).ready(function () {
 
     function wrongAnswer() {
         lossCounter++;
-        console.log(lossCounter);
+    
         if (lossCounter === 3) {
             console.log("Loser");
             lossScreen();
@@ -98,13 +103,11 @@ $(document).ready(function () {
     };
 
     $('body').on('click', '.startButton', function (event) {
-        newHtml();
+        newQuestion();
         timerCount();
-        console.log('start');
     });
 
     $('body').on('click', '.answer', function (event) {
-        console.log('true')
         answerChoice = $(this).text();
         if (answerChoice === game.correctChoice[questionNumber]) {
             console.log('correct');
@@ -116,16 +119,16 @@ $(document).ready(function () {
             wrongAnswer();
             clearInterval(clock);
         }
-        console.log(answerChoice);
+        
     })
 
     $('body').on('click', '.resetButton', function (event) {
         lossCounter = 0;
         winCounter = 0;
         timeCountdown = 15;
-        newHtml();
+        newQuestion();
         timerCount();
-        console.log('restart');
+        
     })
 
 
@@ -149,7 +152,7 @@ $(document).ready(function () {
 
         function lossDueToTimeOut() {
             lossCounter++;
-            console.log(lossCounter);
+            
             if (lossCounter === 3) {
                 lossScreen();
             }
